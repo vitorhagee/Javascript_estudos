@@ -15,13 +15,32 @@ app.get('/main', (req, res) => {
 
 app.post('/users', (req,res) =>{
 
-    const user = req.body
+    const user = {
+        id: users.length + 1,
+        ...req.body
+    };
 
     users.push(user);
+
     res.status(201).json({
         message: 'Usuário Criado',
         data: user
     })
+})
+
+app.get('/users/:id',(req,res)=> {
+
+    const id = parseInt(req.params.id);
+
+    const user = users.find(u => u.id === id);
+
+    if(!user) {
+        return res.status(404).json({
+            message: 'Usuário Não Encontrado!'
+        });
+    }
+    
+    res.json(user);
 })
 
 app.get('/users',(req,res) => {

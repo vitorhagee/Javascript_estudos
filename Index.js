@@ -25,21 +25,23 @@ app.get('/main', (req, res) => {
 app.post('/users', (req,res) =>{
 
     //define que a const {name,email} vai receber informações do body e inicializa ela
-    const {name, email} = req.body;
+    const {name, email,cpf} = req.body;
  
     //define que a const user vai integrar um ID progressivo de + com a quantia que achar, e receber REQ de name e email
     const user = {
         id: users.length + 1,
         name,
-        email
+        email,
+        cpf
     };
 
     //validação do nome e email
-    if(!name || !email){
+    if(!name || !email || !cpf){
         return res.status(400).json({
-            message: 'nome e email são obrigatórios'
+            message: 'nome,email e CPF são obrigatórios'
         });
     }
+
 
     //preenche a variavel user com o json enviado via REQ para o banco
     users.push(user);
@@ -99,7 +101,7 @@ app.get('/users/:id',(req,res)=> {
 app.put('/users/:id',(req,res) =>{
 
     //define que a const {name,email} vai receber informações do body e inicializa ela
-    const {name,email} = req.body;
+    const {name,email,cpf} = req.body;
 
     //variavel que recebe o id do parametro do HTML
     const id = parseInt(req.params.id);
@@ -115,9 +117,9 @@ app.put('/users/:id',(req,res) =>{
     }
     
     //checa se foram informados nome e email
-    if(!email ||!name){
+    if(!email ||!name || !cpf){
         return res.status(400).json({
-            message: 'nome e email são obrigatórios para atualização'
+            message: 'nome, email e CPF são obrigatórios para atualização'
         });
     }
 
@@ -125,9 +127,9 @@ app.put('/users/:id',(req,res) =>{
     const updateUser = {
         id: users[index].id,
         name,
-        email
+        email,
+        cpf
     };
-
 
     //atualiza as informações do usuario encontrado com as informações adicionadas no updateuser
     users[index] = updateUser;

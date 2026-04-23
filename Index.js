@@ -122,7 +122,7 @@ app.put('/users/:id',(req,res) =>{
     }
 
     //faz o update do usuário encontrado no index
-    const updateuser = {
+    const updateUser = {
         id: users[index].id,
         name,
         email
@@ -130,12 +130,12 @@ app.put('/users/:id',(req,res) =>{
 
 
     //atualiza as informações do usuario encontrado com as informações adicionadas no updateuser
-    users[index] = updateuser;
+    users[index] = updateUser;
 
     //retorna a mensagem de que o usuário foi atualizado
     res.json({
         message: 'Usuário atualizado com sucesso',
-        data: updateuser
+        data: updateUser
     });
 });
 

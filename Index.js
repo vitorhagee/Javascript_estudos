@@ -114,6 +114,13 @@ app.put('/users/:id',(req,res) =>{
         });
     }
     
+    //checa se foram informados nome e email
+    if(!email ||!name){
+        return res.status(400).json({
+            message: 'nome e email são obrigatórios para atualização'
+        });
+    }
+
     //faz o update do usuário encontrado no index
     const updateuser = {
         id: users[index].id,
@@ -121,12 +128,6 @@ app.put('/users/:id',(req,res) =>{
         email
     };
 
-    //checa se foram informados nome e email
-    if(!email ||!name){
-        return res.status(400).json({
-            message: 'nome e email são obrigatórios para atualização'
-        });
-    }
 
     //atualiza as informações do usuario encontrado com as informações adicionadas no updateuser
     users[index] = updateuser;

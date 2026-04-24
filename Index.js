@@ -1,7 +1,10 @@
 //inicializa da variavel Express, fundamental para que se possa usar as funções dele
 const express = require('express');
+//inicializa o axios pra consumir uma API externa
+const axios = require("axios");
 // simula um banco de dados (futuramente ira integrar com um banco sql)
 const users = [];
+const extUsers = [];
 
 //inicializa a variavel app colocando a função express() onde podera usar o framework
 const app = express();
@@ -145,6 +148,17 @@ app.put('/users/:id',(req,res) =>{
 app.get('/users',(req,res) => {
     res.json(users);
 });
+
+//Consumindo uma API externa e validando se a mesma chegou corretamente
+app.get("/externos/usuarios" ,async(req,res) =>{
+        try{
+            const response = await axios.get("https://jsonplaceholder.typicode.com/users");
+    
+            res.json(response.data); // devolve resultado da API
+        } catch(error){
+            res.status(500).json({ error: "erro ao buscar usuários"});
+        }
+} )
 
 //listen para saber que o server está rodando corretamente
 app.listen(3001, () => {
